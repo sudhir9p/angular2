@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header text-center">
+        Featured
+    </div>
+    <div class="card-body">
+        <div class="card" style="padding-left: 15px" *ngFor="let article of articlesList">
+            <div class="row">
+                <img style="height: 100px; width:100px"
+                    [src]="article.urlToImage"
+                    alt="..." class="img-thumbnail">
+                <span style=" width : 750px; padding-left: 15px; word-wrap: break-word;display: block;">{{article.description}}</span>
+                <br />
+                <div style="display: block"><a href="">Read more..</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer  text-center text-muted">
+        Copy Rights 2019
+    </div>
+</div>
