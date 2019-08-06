@@ -1,17 +1,17 @@
 <div class="card" style="margin-bottom: 20px">
     <div class="card-header text-center">
-        Source
+        Source -  {{sourceType}}
     </div>
     <div class="card-body">
         <div class="panel">
             <div class="row" style="padding-left: 25px ">
-                <select [(ngModel)]='sourceType' >
-                    <option value="local">Local</option>
-                    <option value="worldwidenews">World Wide News</option>
+                <select [(ngModel)]='sourceType' (change)="onSourceChange($event)" >
+                    <option value="Local">Local</option>
+                    <option value="World Wide News">World Wide News</option>
                 </select>
-                <input style="margin-left:30px" />
-                <button style="margin-left:30px;width:100px" class="btn-primary" >Filter</button>
-                <label style="margin-left:30px;" ><input type="checkbox" value="">Only created by me</label>
+                <input style="margin-left:30px" placeholder="Search articles" [(ngModel)]='filterText' />
+                <button style="margin-left:30px;width:100px" class="btn-primary" (click)="filterArticles($event)" >Filter</button>
+                <!-- <label style="margin-left:30px;" ><input type="checkbox" value="">Only created by me</label> -->
                 <button style="margin-left:30px;width:100px" class="btn-primary" >Add Article</button>
             </div>
         </div>
@@ -21,12 +21,12 @@
                 <span
                     style=" width : 750px; padding-left: 15px; word-wrap: break-word;display: block;">{{article.title}}</span>
                 <br />
-                <div style="display: block; margin-left: 20px;"><a href="">Read more..</a></div>
+                <div style="display: block; margin-left: 20px;"><a style="cursor: pointer;" (click)="onReadMore(article)" ><font style="color:blue">Read more..</font></a></div>
             </div>
         </div>
         
-        <div class="card text-center" style="padding-left: 15px; height: 35px;background-color:aqua" >
-            <span>Load more..</span>
+        <div class="card text-center" *ngIf="isLoadMore"  >
+            <button (click)="onLoadMore()">Load more..</button>
          </div>
     </div>
     <div class="card-footer  text-center text-muted" >

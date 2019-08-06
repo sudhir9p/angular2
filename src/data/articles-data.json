@@ -1,5 +1,5 @@
 {
-    "local": [
+    "Local": [
         {
             "source": {
                 "id": "cnn",
@@ -248,7 +248,7 @@
             "content": "(CNN)Fourteen teens and young adults have been hospitalized in Wisconsin and Illinois for breathing problems potentially linked to vaping, health officials in both states announced Friday.\r\nIn Wisconsin, severe lung disease has sent 11 people to the hospital,… [+4876 chars]"
         }
     ],
-    "worldwidenews": [
+    "World Wide News": [
         {
             "source": {
                 "id": null,

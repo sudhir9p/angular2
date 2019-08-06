@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 //import { local, worldwidenews } from '../../../data/articles-data.json';
-import { catchError, tap,map } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 
 
 
@@ -9,19 +9,17 @@ import { catchError, tap,map } from 'rxjs/operators';
 export class ArticlesService {
 
     totalArticles = [];
+    currentArticle = {};
     constructor(private http: HttpClient) {
 
     }
 
-    getArticles(sourceType,startIndex) {
-        // if (sourceType === "local")
-        //     return local;
-        // else if (sourceType === "worldwide")
-        //     return worldwidenews;
+    getArticles(sourceType, startIndex) {
         return this.http.get('data/articles-data.json').pipe(
             map((data) => {
-                console.log(data);
-               return data[sourceType].slice(startIndex,5);
+                const nextarticles = data[sourceType].slice(startIndex, startIndex + 5);
+                this.totalArticles = [...this.totalArticles, nextarticles]
+                return nextarticles;
             })
         );
     }
