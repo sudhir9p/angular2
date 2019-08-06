@@ -6,15 +6,23 @@ import { ArticlesService } from './articles.service';
 })
 export class ArticlesListComponent implements OnInit {
 
-    articlesList: [];
+    articlesList: any;
+    sourceType = "local";
     constructor(private articlesService: ArticlesService) {
 
     }
     ngOnInit(): void {
-        // this.articlesService.getArticles("local").subscribe(data => {
-        //     this.articlesList = data['local'];
-        // });
-        this.articlesList = this.articlesService.getArticles("local");
-        console.log(this.articlesList);
+        this.loadData();
+    }
+
+    loadData(startindex = 0) {
+        this.articlesService.getArticles("local", startindex).subscribe((data: any) => {
+            if (this.articlesList) {
+                this.articlesList.push(data);
+            }
+            else {
+                this.articlesList = data;
+            }
+        });
     }
 }

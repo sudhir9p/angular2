@@ -1,20 +1,35 @@
-<div class="card">
+<div class="card" style="margin-bottom: 20px">
     <div class="card-header text-center">
-        Featured
+        Source
     </div>
     <div class="card-body">
-        <div class="card" style="padding-left: 15px" *ngFor="let article of articlesList">
-            <div class="row">
-                <img style="height: 100px; width:100px"
-                    [src]="article.urlToImage"
-                    alt="..." class="img-thumbnail">
-                <span style=" width : 750px; padding-left: 15px; word-wrap: break-word;display: block;">{{article.description}}</span>
-                <br />
-                <div style="display: block"><a href="">Read more..</a></div>
+        <div class="panel">
+            <div class="row" style="padding-left: 25px ">
+                <select [(ngModel)]='sourceType' >
+                    <option value="local">Local</option>
+                    <option value="worldwidenews">World Wide News</option>
+                </select>
+                <input style="margin-left:30px" />
+                <button style="margin-left:30px;width:100px" class="btn-primary" >Filter</button>
+                <label style="margin-left:30px;" ><input type="checkbox" value="">Only created by me</label>
+                <button style="margin-left:30px;width:100px" class="btn-primary" >Add Article</button>
             </div>
         </div>
+        <div class="card" style="padding-left: 15px" *ngFor="let article of articlesList">
+            <div class="row">
+                <img style="height: 100px; width:100px" [src]="article.urlToImage" alt="..." class="img-thumbnail">
+                <span
+                    style=" width : 750px; padding-left: 15px; word-wrap: break-word;display: block;">{{article.title}}</span>
+                <br />
+                <div style="display: block; margin-left: 20px;"><a href="">Read more..</a></div>
+            </div>
+        </div>
+        
+        <div class="card text-center" style="padding-left: 15px; height: 35px;background-color:aqua" >
+            <span>Load more..</span>
+         </div>
     </div>
-    <div class="card-footer  text-center text-muted">
+    <div class="card-footer  text-center text-muted" >
         Copy Rights 2019
     </div>
 </div>
