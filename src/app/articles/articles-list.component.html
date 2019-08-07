@@ -5,14 +5,14 @@
     <div class="card-body">
         <div class="panel">
             <div class="row" style="padding-left: 25px ">
-                <select [(ngModel)]='sourceType' (change)="onSourceChange($event)" >
+                <select  [(ngModel)]='sourceType' (change)="onSourceChange($event)" >
                     <option value="Local">Local</option>
                     <option value="World Wide News">World Wide News</option>
                 </select>
-                <input style="margin-left:30px" placeholder="Search articles" [(ngModel)]='filterText' />
-                <button style="margin-left:30px;width:100px" class="btn-primary" (click)="filterArticles($event)" >Filter</button>
+                <input style="margin-left:50px" placeholder="Search articles" [(ngModel)]='filterText' />
+                <button style="margin-left:50px;width:100px" class="btn-primary" (click)="filterArticles($event)" >Filter</button>
                 <!-- <label style="margin-left:30px;" ><input type="checkbox" value="">Only created by me</label> -->
-                <button style="margin-left:30px;width:100px" class="btn-primary" >Add Article</button>
+                <button style="margin-left:50px;width:100px" class="btn-primary" (click)="onAddArticle($event)" >Add Article</button>
             </div>
         </div>
         <div class="card" style="padding-left: 15px" *ngFor="let article of articlesList">
@@ -21,7 +21,7 @@
                 <span
                     style=" width : 750px; padding-left: 15px; word-wrap: break-word;display: block;">{{article.title}}</span>
                 <br />
-                <div style="display: block; margin-left: 20px;"><a style="cursor: pointer;" (click)="onReadMore(article)" ><font style="color:blue">Read more..</font></a></div>
+                <div style="display: block; margin-left: 20px;"><a class='nav-link' style="cursor: pointer" (click)="onReadMore(article)" ><font style="color:blue">Read more..</font></a></div>
             </div>
         </div>
         

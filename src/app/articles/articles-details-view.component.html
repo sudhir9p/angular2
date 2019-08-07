@@ -3,9 +3,10 @@
         {{article.title}}
     </div>
     <div class="card-body">
-        <img [src]="article.urlToImage" style="height: 300px; width: 300px; float: left;margin-right: 10px " alt="" class="img-thumbnail">
-        
-        <span style="padding-right: 50px" >
+        <img [src]="article.urlToImage" style="height: 300px; width: 300px; float: left;margin-right: 10px " alt=""
+            class="img-thumbnail">
+
+        <span style="padding-right: 50px">
             {{article.description}}
         </span>
 
@@ -16,8 +17,10 @@
         <span style="display:block;margin-top: 50px">
             Url : <a href="{{article.url}}">{{article.url}}</a>
         </span>
-        <button style="float:right;margin-top:5px" class="btn-success">Edit  </button>
-        <button style="float:right;margin-top:5px;margin-left: 10px;margin-right: 10px;" class="btn-success">Delete</button>
+        <button *ngIf="articleService.sourceType == 'Local' " (click)="onEditDelete(article.id,'Edit')"
+            style="float:right;margin-top:5px" class="btn-success">Edit </button>
+        <button *ngIf="articleService.sourceType == 'Local' " (click)="onEditDelete(article.id,'Delete')"
+            style="float:right;margin-top:5px;margin-left: 10px;margin-right: 10px;" class="btn-success">Delete</button>
     </div>
     <div class="card-footer  text-center text-muted">
         Copy Rights 2019

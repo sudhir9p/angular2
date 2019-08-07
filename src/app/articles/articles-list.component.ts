@@ -12,25 +12,33 @@ export class ArticlesListComponent implements OnInit {
     sourceType = "Local";
     isLoadMore: boolean = true;
     pageIndex: number = 0;
-    constructor(private articlesService: ArticlesService,private router:Router) {
+    constructor(private articlesService: ArticlesService, private router: Router) {
 
     }
     ngOnInit(): void {
+        this.articlesService.sourceType = this.sourceType;
+        this.articlesService.currentArticle = {};
         this.loadData();
     }
 
     loadData() {
-        this.articlesService.getArticles(this.sourceType, this.pageIndex).subscribe((data: any) => {
-            console.log(data);
-            this.isLoadMore = data.length < 5 ? false : true;
-            debugger;
-            if (this.articlesList) {
-                this.articlesList = [...this.articlesList, ...data];
-            }
-            else {
-                this.articlesList = data;
-            }
-        });
+        debugger;
+        if (this.articlesService.totalArticles.length > 0) {
+            this.articlesList = this.articlesService.totalArticles;
+        }
+        else {
+            this.articlesService.getArticles(this.sourceType, this.pageIndex).subscribe((data: any) => {
+                console.log(data);
+                this.isLoadMore = data.length < 5 ? false : true;
+                debugger;
+                if (this.articlesList) {
+                    this.articlesList = [...this.articlesList, ...data];
+                }
+                else {
+                    this.articlesList = data;
+                }
+            });
+        }
     }
 
     onLoadMore() {
@@ -39,6 +47,7 @@ export class ArticlesListComponent implements OnInit {
     }
 
     onSourceChange(event) {
+        this.articlesService.sourceType = this.sourceType;
         this.articlesList = [];
         this.loadData();
     }
@@ -53,5 +62,9 @@ export class ArticlesListComponent implements OnInit {
             this.articlesList = this.articlesList.filter(value => value.title.includes(this.filterText));
         else
             this.loadData();
+    }
+
+    onAddArticle(e) {
+        this.router.navigate(['/article/edit']);
     }
 }

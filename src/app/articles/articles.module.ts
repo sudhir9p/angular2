@@ -18,8 +18,9 @@ import { ArticleCreateEditComponent } from './article-create-edit.component';
                 component: ArticleDetailsViewComponent
             },
             {
-                path: 'article/:id',
-                component: ArticleDetailsViewComponent
+                //path: 'article/:id',
+                path: 'article/edit',
+                component: ArticleCreateEditComponent
             },
         ])
     ],

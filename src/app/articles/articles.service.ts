@@ -10,6 +10,7 @@ export class ArticlesService {
 
     totalArticles = [];
     currentArticle = {};
+    sourceType: string="";
     constructor(private http: HttpClient) {
 
     }
@@ -18,7 +19,7 @@ export class ArticlesService {
         return this.http.get('data/articles-data.json').pipe(
             map((data) => {
                 const nextarticles = data[sourceType].slice(startIndex, startIndex + 5);
-                this.totalArticles = [...this.totalArticles, nextarticles]
+                this.totalArticles = [...this.totalArticles, ...nextarticles]
                 return nextarticles;
             })
         );

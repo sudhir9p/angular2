@@ -7,6 +7,9 @@ import { WelcomeComponent } from './home/welcome.component';
 import { ArticlesModule } from './articles/articles.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot() ,
     HttpClientModule,
     AppRoutingModule,
     ArticlesModule
