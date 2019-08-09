@@ -21,9 +21,9 @@ export class ArticlesListComponent implements OnInit {
         this.loadData();
     }
 
-    loadData() {
+    loadData(loadMore=false) {
         debugger;
-        if (this.articlesService.totalArticles.length > 0) {
+        if (this.articlesService.totalArticles.length > 0 && !loadMore) {
             this.articlesList = this.articlesService.totalArticles;
         }
         else {
@@ -43,7 +43,7 @@ export class ArticlesListComponent implements OnInit {
 
     onLoadMore() {
         this.pageIndex += 5;
-        this.loadData();
+        this.loadData(true);
     }
 
     onSourceChange(event) {
