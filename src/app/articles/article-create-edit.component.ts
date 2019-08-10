@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from './articles.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ArticleCreateEditComponent implements OnInit {
 
     article: any;
-    constructor(private articleService: ArticlesService,
+    constructor(private articleService: ArticlesService, private router: Router,
         private activeRoute: ActivatedRoute, private toastr: ToastrService) {
     }
 
@@ -43,6 +43,7 @@ export class ArticleCreateEditComponent implements OnInit {
         }
     }
     onCancel(e) {
-
+        console.log('aaaaaaaaaaaa');
+        this.router.navigate(['../articles']);
     }
 }

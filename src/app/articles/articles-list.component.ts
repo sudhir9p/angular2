@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from './articles.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     templateUrl: './articles-list.component.html'
@@ -12,7 +13,8 @@ export class ArticlesListComponent implements OnInit {
     sourceType = "Local";
     isLoadMore: boolean = true;
     pageIndex: number = 0;
-    constructor(private articlesService: ArticlesService, private router: Router) {
+    constructor(private articlesService: ArticlesService, private router: Router,
+        private toastr: ToastrService) {
 
     }
     ngOnInit(): void {
@@ -21,7 +23,7 @@ export class ArticlesListComponent implements OnInit {
         this.loadData();
     }
 
-    loadData(loadMore=false) {
+    loadData(loadMore = false) {
         debugger;
         if (this.articlesService.totalArticles.length > 0 && !loadMore) {
             this.articlesList = this.articlesService.totalArticles;
@@ -66,5 +68,23 @@ export class ArticlesListComponent implements OnInit {
 
     onAddArticle(e) {
         this.router.navigate(['/article/edit']);
+    }
+
+    onEditDelete(id, type) {
+        const index = this.articlesService.totalArticles.findIndex(article => id == article.id);
+        if (type == "Delete") {
+            if (index !== -1) {
+                this.articlesService.totalArticles.splice(index, 1);
+                this.loadData();
+                this.toastr.success("Article Deleted Successfully.");
+            }
+            else {
+                this.toastr.error("Unable to delete article.");
+            }
+        }
+        else {
+            this.articlesService.currentArticle = this.articlesService.totalArticles[index];
+            this.router.navigate(['/article/edit']);
+        }
     }
 }
