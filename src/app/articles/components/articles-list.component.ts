@@ -75,7 +75,6 @@ export class ArticlesListComponent implements OnInit {
     }
 
     onEditDelete({id, type}) {
-        debugger;
         const index = this.articlesService.totalArticles.findIndex(article => id == article.id);
         if (type == "Delete") {
             if (index !== -1) {
