@@ -6,8 +6,7 @@
         <div class="panel">
             <div class="row" style="padding-left: 25px ">
                 <select [(ngModel)]='sourceType' (change)="onSourceChange($event)">
-                    <option value="Local">Local</option>
-                    <option value="World Wide News">World Wide News</option>
+                    <option *ngFor="let source of sourcesList"  [value]="source.id">{{source.name}}</option>
                 </select>
                 <input style="margin-left:50px" placeholder="Search articles" [(ngModel)]='filterText' />
                 <button style="margin-left:50px;width:100px" class="btn-primary"
@@ -34,10 +33,10 @@
                     <span> 2019-08-21 </span>
                 </div>
                 <div class="col-2" style="padding-left:5px;">
-                    <button *ngIf="sourceType == 'Local' " (click)="onEditDelete(article.id,'Edit')"
-                        style="margin-top:15px;width:80px;height:30px;margin-right: 2px;" 
-                        class="btn-success">Edit </button>
-                    <button *ngIf="sourceType == 'Local' " (click)="onEditDelete(article.id,'Delete')"
+                    <button *ngIf="sourceType.includes('local') " (click)="onEditDelete(article.id,'Edit')"
+                        style="margin-top:15px;width:80px;height:30px;margin-right: 2px;" class="btn-success">Edit
+                    </button>
+                    <button *ngIf="sourceType.includes('local') " (click)="onEditDelete(article.id,'Delete')"
                         style="margin-top:15px;width:80px;height:30px;padding-left: 5px;"
                         class="btn-success">Delete</button>
                 </div>

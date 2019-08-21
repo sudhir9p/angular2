@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { commonService } from '../shared/common.service';
 
 
 
@@ -8,34 +10,38 @@ import { catchError, tap, map } from 'rxjs/operators';
 export class ArticlesService {
 
     totalArticles = [];
+    localArticles = [];
     currentArticle = {};
     sourceType: string = "";
-    configData = {};
-    constructor(private http: HttpClient) {
-        this.getConfigData();
+    configData :any;
+    constructor(private http: HttpClient, private commonService: commonService) {
     }
 
-    getArticles(sourceType, startIndex) {
-        return this.http.get(`${this.configData['apiUrl']}/sources?apiKey=${this.configData['apiKey']}`).pipe(
-            map((data) => {
-                const nextarticles = data[sourceType].slice(startIndex, startIndex + 5);
-                this.totalArticles = [...this.totalArticles, ...nextarticles]
-                return nextarticles;
-            })
-        );
+    getArticles(source, startIndex) {
+        if (!source.includes('local')) {
+            return this.http.get(`${this.commonService.configData['apiUrl']}/top-headlines?sources=${source}&apiKey=${this.commonService.configData['apiKey']}&pageSize=${this.commonService.configData['pageSize']}&page=${startIndex}`).pipe(
+                map((data: []) => {
+                    const nextarticles = data['articles'];
+                    this.totalArticles = [...this.totalArticles, ...nextarticles]
+                    return nextarticles;
+                })
+            );
+        }
+        else {
+            return this.http.get('data/articles-data.json').pipe(
+                map((data) => {
+                    const nextarticles = data['Local'].slice(startIndex, startIndex + 5);
+                    this.totalArticles = [...this.totalArticles, ...nextarticles]
+                    return nextarticles;
+                })
+            );
+        }
     }
 
     getSources() {
-        return this.http.get(`${this.configData['apiUrl']}/sources?apiKey=${this.configData['apiKey']}`).pipe(
-            map((data) => {
-                return data;
-            })
-        );
-    }
+        const sources$ = this.http.get(`${this.commonService.configData['apiUrl']}/sources?apiKey=${this.commonService.configData['apiKey']}`);
+        const localSources$ = this.http.get('data/articles-data.json');
 
-    getConfigData() {
-        this.http.get('data/appConfig.json').subscribe(data => {
-            this.configData = data;
-        });
+        return forkJoin(sources$, localSources$);
     }
 }

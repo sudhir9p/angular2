@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from './articles.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { commonService } from '../shared/common.service';
 
 @Component({
     templateUrl: './articles-list.component.html'
@@ -10,41 +11,41 @@ export class ArticlesListComponent implements OnInit {
 
     articlesList: any;
     filterText: string = "";
-    sourceType = "Local";
+    sourceType = '';
+    sourcesList: any[] = [];
     isLoadMore: boolean = true;
-    pageIndex: number = 0;
-    constructor(private articlesService: ArticlesService, private router: Router,
+    pageIndex: number = 1;
+    constructor(private commonService: commonService, private articlesService: ArticlesService, private router: Router,
         private toastr: ToastrService) {
 
     }
     ngOnInit(): void {
-        this.articlesService.sourceType = this.sourceType;
-        this.articlesService.currentArticle = {};
-        this.loadData();
+        if (!this.commonService.configData || !this.commonService.configData['apiUrl']) {
+            this.commonService.getConfigData().subscribe(data => {
+                this.commonService.configData = data;
+                this.articlesService.sourceType = this.sourceType;
+                this.articlesService.currentArticle = {};
+                this.loadSources();
+            });
+        }
+
+        this.loadSources();
     }
 
     loadData(loadMore = false) {
-        debugger;
-        if (this.articlesService.totalArticles.length > 0 && !loadMore) {
-            this.articlesList = this.articlesService.totalArticles;
-        }
-        else {
-            this.articlesService.getArticles(this.sourceType, this.pageIndex).subscribe((data: any) => {
-                console.log(data);
-                this.isLoadMore = data.length < 5 ? false : true;
-                debugger;
-                if (this.articlesList) {
-                    this.articlesList = [...this.articlesList, ...data];
-                }
-                else {
-                    this.articlesList = data;
-                }
-            });
-        }
+        this.articlesService.getArticles(this.sourceType, this.pageIndex).subscribe((data: any) => {
+            this.isLoadMore = data.length < 5 ? false : true;
+            if (this.articlesList) {
+                this.articlesList = [...this.articlesList, ...data];
+            }
+            else {
+                this.articlesList = data;
+            }
+        });
     }
 
     onLoadMore() {
-        this.pageIndex += 5;
+        this.pageIndex += this.sourceType.includes('local') ? 5 : 1;
         this.loadData(true);
     }
 
@@ -67,6 +68,7 @@ export class ArticlesListComponent implements OnInit {
     }
 
     onAddArticle(e) {
+        this.articlesService.currentArticle = {};
         this.router.navigate(['/article/edit']);
     }
 
@@ -86,5 +88,20 @@ export class ArticlesListComponent implements OnInit {
             this.articlesService.currentArticle = this.articlesService.totalArticles[index];
             this.router.navigate(['/article/edit']);
         }
+    }
+
+    loadSources() {
+        this.articlesService.getSources().subscribe(res => {
+            const sources = [];
+            res[1]['Local'].forEach((item) => {
+                sources.push({ id: item.source.id, name: item.source.name, type: 'Local' });
+            });
+            res[0]['sources'].forEach(item => {
+                sources.push({ id: item.id, name: item.name, type: 'Web' });
+            });
+            this.sourcesList = sources;
+            this.sourceType = this.articlesService.sourceType ? this.articlesService.sourceType : this.sourcesList[0].id;
+            this.loadData();
+        })
     }
 }

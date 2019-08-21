@@ -2,7 +2,7 @@
     "Local": [
         {
             "source": {
-                "id": "lcoal-cnn",
+                "id": "local-cnn",
                 "name": "Local CNN"
             },
             "author": "Sarah Aarthun, CNN",
@@ -16,8 +16,8 @@
         },
         {
             "source": {
-                "id": "lcoal-cnn",
-                "name": "Local CNN"
+                "id": "local-abc",
+                "name": "Local ABC News"
             },
             "author": "Bre Williams",
             "title": "Who Is Lamar Odom's New Girlfriend, Sabrina Parr, and Has He Fully Moved On From Khloé Kardashian? - The Cheat Sheet",
@@ -30,8 +30,8 @@
         },
         {
             "source": {
-                "id": "lcoal-cnn",
-                "name": "Local CNN"
+                "id": "local-ndtv",
+                "name": "Local NDTV"
             },
             "author": "Associated Press",
             "title": "Woman gunned down in El Paso shooting was shielding her 2-month-old son, family says - NBCNews.com",
@@ -44,8 +44,8 @@
         },
         {
             "source": {
-                "id": "local-politico",
-                "name": "Local Politico"
+                "id": "local-cnbc",
+                "name": "Local CNBC"
             },
             "author": "CAITLIN OPRYSKO",
             "title": "Democratic candidates say Trump’s rhetoric encourages violence - POLITICO",
@@ -72,8 +72,8 @@
         },
         {
             "source": {
-                "id": "local-politico",
-                "name": "Local Politico"
+                "id": "local-focus",
+                "name": "Local Focus"
             },
             "author": null,
             "title": "Live Updates: Shootings in El Paso and Ohio Leave at Least 29 Dead - The New York Times",

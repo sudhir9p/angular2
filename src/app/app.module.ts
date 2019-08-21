@@ -8,8 +8,9 @@ import { ArticlesModule } from './articles/articles.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
+
 import { ToastrModule } from 'ngx-toastr';
+import { commonService } from './shared/common.service';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,12 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot() ,
+    ToastrModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     ArticlesModule
   ],
-  providers: [],
+  providers: [commonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

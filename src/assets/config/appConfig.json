@@ -1,4 +1,5 @@
 {
     "apiUrl": "https://newsapi.org/v2",
-    "apiKey" : "c132a5c4ae714d27bdcc6b99f32c3c47"
+    "apiKey" : "c132a5c4ae714d27bdcc6b99f32c3c47",
+    "pageSize":"5"
 }

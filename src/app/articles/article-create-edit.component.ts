@@ -14,7 +14,6 @@ export class ArticleCreateEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // const articleId = +this.activeRoute.snapshot.params['id'];
         this.article = this.articleService.currentArticle || {};
     }
 
@@ -30,20 +29,18 @@ export class ArticleCreateEditComponent implements OnInit {
             }
         }
         else {
-            if (this.article.title == "" || this.article.description == "")
-                this.toastr.warning("Article title and content are mandatory");
+            if (!this.article.title  || !this.article.description )
+                this.toastr.warning("Article title and content are required.");
             else {
                 this.article.id = Math.round(Math.random() * 100000);
-                console.log(this.articleService.totalArticles);
                 this.articleService.totalArticles.push(this.article);
-                console.log(this.articleService.totalArticles);
                 this.toastr.success("Article added Successfully.");
+                this.article = {};
             }
 
         }
     }
     onCancel(e) {
-        console.log('aaaaaaaaaaaa');
         this.router.navigate(['../articles']);
     }
 }
