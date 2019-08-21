@@ -1,0 +1,26 @@
+<div class="card" style="padding-left: 15px" *ngFor="let article of articlesList">
+    <div class="row">
+        <div class="col-2">
+            <img style="height: 100px;" [src]="article.urlToImage" alt="..." class="img-thumbnail">
+        </div>
+        <div class="col-6">
+            <span style="padding-left: 15px; word-wrap: break-word;display: block;">{{article.title}}</span>
+            <br />
+            <div style="float:right;display: block; margin-left: 20px;"><a class='nav-link'
+                    style="cursor: pointer" (click)="onReadMore(article)">
+                    <font style="color:blue">Read more..</font>
+                </a></div>
+        </div>
+        <div class="col-2">
+            <span> 2019-08-21 </span>
+        </div>
+        <div class="col-2" style="padding-left:5px;">
+            <button *ngIf="sourceType.includes('local') " (click)="onEditAndDelete(article.id,'Edit')"
+                style="margin-top:15px;width:80px;height:30px;margin-right: 2px;" class="btn-success">Edit
+            </button>
+            <button *ngIf="sourceType.includes('local') " (click)="onEditAndDelete(article.id,'Delete')"
+                style="margin-top:15px;width:80px;height:30px;padding-left: 5px;"
+                class="btn-success">Delete</button>
+        </div>
+    </div>
+</div>

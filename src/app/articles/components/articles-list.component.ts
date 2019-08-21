@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticlesService } from './articles.service';
+import { ArticlesService } from '../service/articles.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { commonService } from '../shared/common.service';
+import { commonService } from '../../shared/common.service';
 
 @Component({
-    templateUrl: './articles-list.component.html'
+    templateUrl: '../html/articles-list.component.html'
 })
 export class ArticlesListComponent implements OnInit {
 
@@ -15,6 +15,7 @@ export class ArticlesListComponent implements OnInit {
     sourcesList: any[] = [];
     isLoadMore: boolean = true;
     pageIndex: number = 1;
+
     constructor(private commonService: commonService, private articlesService: ArticlesService, private router: Router,
         private toastr: ToastrService) {
 
@@ -36,6 +37,7 @@ export class ArticlesListComponent implements OnInit {
         this.articlesService.getArticles(this.sourceType, this.pageIndex).subscribe((data: any) => {
             this.isLoadMore = data.length < 5 ? false : true;
             if (this.articlesList) {
+                /* Not mutating data for change detection to work */
                 this.articlesList = [...this.articlesList, ...data];
             }
             else {
@@ -72,7 +74,8 @@ export class ArticlesListComponent implements OnInit {
         this.router.navigate(['/article/edit']);
     }
 
-    onEditDelete(id, type) {
+    onEditDelete({id, type}) {
+        debugger;
         const index = this.articlesService.totalArticles.findIndex(article => id == article.id);
         if (type == "Delete") {
             if (index !== -1) {

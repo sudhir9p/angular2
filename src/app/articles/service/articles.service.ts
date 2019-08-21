@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-import { commonService } from '../shared/common.service';
+import { commonService } from '../../shared/common.service';
 
 
 

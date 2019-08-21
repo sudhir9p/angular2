@@ -1,0 +1,29 @@
+<div class="card" style="margin-bottom: 20px">
+    <div class="card-header text-center">
+        Source - {{sourceType}}
+    </div>
+    <div class="card-body">
+        <div class="panel">
+            <div class="row" style="padding-left: 25px ">
+                <select [(ngModel)]='sourceType' (change)="onSourceChange($event)">
+                    <option *ngFor="let source of sourcesList" [value]="source.id">{{source.name}}</option>
+                </select>
+                <input style="margin-left:50px" placeholder="Search articles" [(ngModel)]='filterText' />
+                <button style="margin-left:50px;width:100px" class="btn-primary"
+                    (click)="filterArticles($event)">Filter</button>
+                <!-- <label style="margin-left:30px;" ><input type="checkbox" value="">Only created by me</label> -->
+                <button style="margin-left:50px;width:100px" class="btn-primary" (click)="onAddArticle($event)">Add
+                    Article</button>
+            </div>
+        </div>
+
+        <article-list-results [articlesList]="articlesList" [sourceType]="sourceType"
+        (onEditDelete)="onEditDelete($event)" ></article-list-results>
+        <div class="card text-center" *ngIf="isLoadMore">
+            <button (click)="onLoadMore()">Load more..</button>
+        </div>
+    </div>
+    <div class="card-footer  text-center text-muted">
+        Copy Rights 2019
+    </div>
+</div>

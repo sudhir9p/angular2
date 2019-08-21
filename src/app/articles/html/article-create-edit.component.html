@@ -1,0 +1,66 @@
+<div class="card" style="margin-bottom: 20px">
+    <div class="card-header text-center">
+        Edit
+    </div>
+    <div class="card-body">
+        <form novalidate (ngSubmit)="onSave()" [formGroup]="articleForm">
+            <div class="row">
+                <div class="col">
+                    <label>Title</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': (articleForm.get('title').touched ||
+                                            articleForm.get('title').dirty) &&
+                                            !articleForm.get('title').valid }" formControlName="title"
+                        placeholder="Title">
+                </div>
+                <div class="col">
+                    <label>Date</label>
+                    <input type="text" class="form-control" formControlName="publishedAt" placeholder="Date">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Description</label>
+                    <input type="text" class="form-control" formControlName="description" [ngClass]="{'is-invalid': (articleForm.get('description').touched ||
+                    articleForm.get('description').dirty) &&
+                    !articleForm.get('description').valid }" placeholder="Description">
+                </div>
+                <div class="col">
+                    <label>Author</label>
+                    <input type="text" class="form-control" formControlName="author"  placeholder="Author">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-right: 30px;">
+                    <label>Content</label>
+                    <input type="text" class="form-control" formControlName="content" [ngClass]="{'is-invalid': (articleForm.get('content').touched ||
+                    articleForm.get('content').dirty) &&
+                    !articleForm.get('content').valid }" style="height: 200px">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label>Source URL</label>
+                        <input type="text" class="form-control" formControlName="url" placeholder="Source URL">
+                    </div>
+                    <div class="row">
+                        <label>Image URL</label>
+                        <input type="text" class="form-control" formControlName="urlToImage" placeholder="Source URL">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn-success" type="submit" [disabled]="!articleForm.valid"
+                                style="margin-top: 25px;">Save</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn-success" (click)="onCancel($event)"
+                                style="margin-top: 25px;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="card-footer  text-center text-muted">
+        Copy Rights 2019
+    </div>
+</div>

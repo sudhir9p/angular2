@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticlesService } from './articles.service';
+import { ArticlesService } from '../service/articles.service';
 import { Router } from '@angular/router';
 
 @Component({
-    templateUrl: './articles-details-view.component.html'
+    templateUrl: '../html/articles-details-view.component.html'
 })
 export class ArticleDetailsViewComponent implements OnInit {
 
