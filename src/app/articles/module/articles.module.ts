@@ -8,7 +8,7 @@ import { ArticleDetailsViewComponent } from '../components/article-details-view.
 import { ArticleCreateEditComponent } from '../components/article-create-edit.component';
 import { ArticleListResultsComponent } from '../components/article-list-results.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { OrderbyPipe } from '../../shared/orderby.pipe';
 
 @NgModule({
     imports: [
@@ -32,8 +32,9 @@ import { BrowserModule } from '@angular/platform-browser';
         ArticleListResultsComponent,
         ArticlesListComponent,
         ArticleDetailsViewComponent,
-        ArticleCreateEditComponent
+        ArticleCreateEditComponent,
+        OrderbyPipe
     ],
-    providers: [ArticlesService]
+    providers: [ArticlesService, OrderbyPipe]
 })
 export class ArticlesModule { }
