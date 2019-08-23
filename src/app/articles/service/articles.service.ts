@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { commonService } from '../../shared/common.service';
 
 
@@ -13,7 +13,7 @@ export class ArticlesService {
     localArticles = [];
     currentArticle = {};
     sourceType: string = "";
-    configData :any;
+    configData: any;
     constructor(private http: HttpClient, private commonService: commonService) {
     }
 
@@ -28,13 +28,17 @@ export class ArticlesService {
             );
         }
         else {
-            return this.http.get('data/articles-data.json').pipe(
-                map((data) => {
-                    const nextarticles = data['Local'].slice(startIndex, startIndex + 5);
-                    this.totalArticles = [...this.totalArticles, ...nextarticles]
-                    return nextarticles;
-                })
-            );
+            if (!this.localArticles || this.localArticles.length === 0) {
+                return this.http.get('data/articles-data.json').pipe(
+                    map((data) => {
+                        const nextarticles = data['Local'].slice(startIndex, startIndex + 5);
+                        this.localArticles = [...this.localArticles, ...nextarticles];
+                        return nextarticles;
+                    })
+                );
+            }
+            else
+                return of(this.localArticles);
         }
     }
 

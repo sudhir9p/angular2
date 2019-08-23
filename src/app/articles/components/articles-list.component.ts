@@ -63,10 +63,15 @@ export class ArticlesListComponent implements OnInit {
     }
 
     filterArticles(e) {
-        if (this.filterText)
+        if (this.filterText != "") {
             this.articlesList = this.articlesList.filter(value => value.title.includes(this.filterText));
-        else
+        }
+        else {
+            this.articlesService.totalArticles = [];
+            this.articlesService.localArticles = [];
+            this.articlesList = [];
             this.loadData();
+        }
     }
 
     onAddArticle(e) {
@@ -74,12 +79,13 @@ export class ArticlesListComponent implements OnInit {
         this.router.navigate(['/article/edit']);
     }
 
-    onEditDelete({id, type}) {
-        const index = this.articlesService.totalArticles.findIndex(article => id == article.id);
+    onEditDelete({ id, type }) {
+        const index = this.articlesService.localArticles.findIndex(article => id == article.id);
         if (type == "Delete") {
             if (index !== -1) {
-                this.articlesService.totalArticles.splice(index, 1);
-                this.loadData();
+                this.articlesService.localArticles.splice(index, 1);
+                // this.loadData();
+                this.articlesList = this.articlesService.localArticles;
                 this.toastr.success("Article Deleted Successfully.");
             }
             else {
@@ -87,7 +93,7 @@ export class ArticlesListComponent implements OnInit {
             }
         }
         else {
-            this.articlesService.currentArticle = this.articlesService.totalArticles[index];
+            this.articlesService.currentArticle = this.articlesService.localArticles[index];
             this.router.navigate(['/article/edit']);
         }
     }

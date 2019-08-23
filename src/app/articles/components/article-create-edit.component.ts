@@ -29,17 +29,17 @@ export class ArticleCreateEditComponent implements OnInit {
     }
 
     onSave() {
-        this.article.title = this.articleForm.get('title');
-        this.article.publishedAt = this.articleForm.get('publishedAt');
-        this.article.description = this.articleForm.get('description');
-        this.article.content = this.articleForm.get('content');
-        this.article.url = this.articleForm.get('url');
-        this.article.author = this.articleForm.get('author');
-        this.article.urlToImage = this.articleForm.get('urlToImage');
+        this.article.title = this.articleForm.get('title').value;
+        this.article.publishedAt = this.articleForm.get('publishedAt').value;
+        this.article.description = this.articleForm.get('description').value;
+        this.article.content = this.articleForm.get('content').value;
+        this.article.url = this.articleForm.get('url').value;
+        this.article.author = this.articleForm.get('author').value;
+        this.article.urlToImage = this.articleForm.get('urlToImage').value;
         if (this.article.id) {
-            const index = this.articleService.totalArticles.findIndex(article => this.article.id == article.id);
+            const index = this.articleService.localArticles.findIndex(article => this.article.id == article.id);
             if (index !== -1) {
-                this.articleService.totalArticles[index] = this.article;
+                this.articleService.localArticles[index] = this.article;
                 this.toastr.success("Article Updated Successfully.");
             }
             else {
@@ -51,12 +51,13 @@ export class ArticleCreateEditComponent implements OnInit {
                 this.toastr.warning("Article title and content are required.");
             else {
                 this.article.id = Math.round(Math.random() * 100000);
-                this.articleService.totalArticles.push(this.article);
+                this.articleService.localArticles.push(this.article);
                 this.toastr.success("Article added Successfully.");
                 this.article = {};
             }
 
         }
+        this.router.navigate(['../articles']);
     }
     onCancel(e) {
         this.router.navigate(['../articles']);
